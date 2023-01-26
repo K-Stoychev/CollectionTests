@@ -1,3 +1,5 @@
+using NUnit.Framework;
+
 namespace Collections.Tests
 {
     public class CollectionTests
@@ -101,6 +103,33 @@ namespace Collections.Tests
             Assert.That(names.ToString(), Is.EqualTo("[Gosho, Maria]"));
         }
 
+        [Test]
+        public void Test_Collection_InsertAtStart() 
+        {
+            var names = new Collection<string>("Gosho", "Maria");
 
+            names.InsertAt(0, "Peter");
+
+            Assert.That(names.ToString(), Is.EqualTo("[Peter, Gosho, Maria]"));
+        }
+
+        [Test]
+        [Timeout(1000)] 
+        public void Test_Collection_OneMilionItems()
+        {
+            const int itemsCount = 1000000;
+            var nums = new Collection<int>();
+            nums.AddRange(Enumerable.Range(1, itemsCount).ToArray());
+
+            Assert.That(nums.Count == itemsCount);
+            Assert.That(nums.Capacity >= nums.Count);
+            for (int i = itemsCount - 1; i >= 0; i--)
+            {
+                nums.RemoveAt(i);
+            }
+
+            Assert.That(nums.ToString() == "[]");
+            Assert.That(nums.Capacity >= nums.Count);
+        }
     }
 }
