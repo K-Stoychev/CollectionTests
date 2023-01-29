@@ -114,6 +114,17 @@ namespace Collections.Tests
         }
 
         [Test]
+        public void Test_Collection_InsertAtMiddle()
+        {
+            var names = new Collection<string>("Gosho", "Maria");
+            int middleIndex = names.Count / 2;
+
+            names.InsertAt(middleIndex, "Peter");
+
+            Assert.That(names.ToString(), Is.EqualTo("[Gosho, Peter, Maria]"));
+        }
+
+        [Test]
         [Timeout(1000)] 
         public void Test_Collection_OneMilionItems()
         {
